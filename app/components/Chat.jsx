@@ -75,7 +75,7 @@ export class Chat extends React.Component {
                 this.state.message
               );
               const messages = `${this.state.messages}\n${this.state.username}: ${this.state.message}`;
-              this.setState({messages});
+              this.setState({messages, message: ''});
             }}
           >
             send
