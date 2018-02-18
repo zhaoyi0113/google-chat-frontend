@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as types from './types';
 import openSocket from 'socket.io-client';
 
-const baseUrl = 'https://google-chat-backend.herokuapp.com:3100/api/v0';
+const baseUrl = 'https://google-chat-backend.herokuapp.com/api/v0';
 
 export const login = () => {
   return dispatch => {
