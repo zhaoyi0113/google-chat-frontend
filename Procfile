@@ -1,1 +1,1 @@
-backend: npm run start
+backend: npm start
