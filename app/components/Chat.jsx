@@ -1,31 +1,89 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as actions from '../actions';
+import openSocket from 'socket.io-client';
 
-export class Chat extends React.Component {
+class SocketClient {
+  open(url, received) {
+    this.socket = openSocket(url);
 
-	componentDidMount() {
-		const token = this.props.location.query.token;
-	}
+    this.socket.on('message', received);
+  }
 
-  render() {
-    return <div style={{display: 'flex', height: '100%', width: '100%'}}>
-		chat
-		</div>;
+  sendMessage(message) {
+    this.socket.emit('chat', message);
   }
 }
 
+export class Chat extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {messages: ''};
+  }
+  componentDidMount() {
+    const {token, url} = this.props.location.query;
+    this.openSocket(url, token);
+  }
 
-const mapStateToProps = (state) => {
+  openSocket(url, token) {
+    this.socketClient = new SocketClient();
+    this.socketClient.open(url, this.receiveMessage.bind(this));
+  }
+
+  receiveMessage(data) {
+    console.log('received', data);
+    const messages = this.state.messages + '\n' + data;
+    this.setState({messages});
+  }
+
+  render() {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          width: '100%',
+        }}
+      >
+        <div style={{width: '100%'}}>
+          <textarea
+            className="chat-window"
+            rows="30"
+            cols="50"
+            value={this.state.messages}
+            readOnly
+            style={{display: 'block'}}
+          />
+        </div>
+        <div style={{display: 'flex', margin: 'auto'}}>
+          <p>Message</p>
+          <input onChange={e => this.setState({message: e.target.value})} />
+          <button
+            onClick={() => {
+              this.socketClient.sendMessage(this.state.message);
+              const messages = this.state.messages + '\n' + this.state.message;
+              this.setState({messages});
+            }}
+          >
+            send
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		login: () => {
-			dispatch(actions.login())
-		}
-	}
+const mapDispatchToProps = dispatch => {
+  return {
+    login: () => {
+      dispatch(actions.login());
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

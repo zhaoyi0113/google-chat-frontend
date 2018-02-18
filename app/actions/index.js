@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from './types';
+import openSocket from 'socket.io-client';
 
 const baseUrl = 'http://localhost:3100/api/v0';
 
@@ -15,4 +16,9 @@ export const login = () => {
         dispatch({type: types.LOGIN_ERROR});
       });
   };
+};
+
+export const connectSocket = (url, token) => {
+	const socket = openSocket(url, token);
+	
 };
