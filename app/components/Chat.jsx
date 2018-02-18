@@ -67,7 +67,7 @@ export class Chat extends React.Component {
         </div>
         <div style={{display: 'flex', margin: 'auto'}}>
           <p>Message</p>
-          <input onChange={e => this.setState({message: e.target.value})} />
+          <input onChange={e => this.setState({message: e.target.value})} value={this.state.message}/>
           <button
             onClick={() => {
               this.socketClient.sendMessage(
