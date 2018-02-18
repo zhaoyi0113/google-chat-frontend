@@ -46,7 +46,8 @@
     "redux": "^3.7.2",
     "redux-chunk": "^1.0.10",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "rimraf": "2.6.2"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
@@ -77,7 +78,6 @@
     "open-browser-webpack-plugin": "0.0.5",
     "react-addons-test-utils": "15.6.2",
     "react-test-renderer": "16.0.0",
-    "rimraf": "2.6.2",
     "sass-loader": "6.0.6",
     "style-loader": "0.19.0",
     "url-loader": "0.6.1",
