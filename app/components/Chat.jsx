@@ -2,10 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-export class Main extends React.Component {
+export class Chat extends React.Component {
+
+	componentDidMount() {
+		const token = this.props.location.query.token;
+	}
+
   render() {
     return <div style={{display: 'flex', height: '100%', width: '100%'}}>
-			<button style={{alignSelf: 'center', margin: 'auto', width: '100px', height: '50px'}} onClick={() => this.props.login()}>Login</button>
+		chat
 		</div>;
   }
 }
@@ -23,4 +28,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
