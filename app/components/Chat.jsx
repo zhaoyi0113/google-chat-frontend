@@ -10,8 +10,8 @@ class SocketClient {
     this.socket.on('message', received);
   }
 
-  sendMessage(message) {
-    this.socket.emit('chat', message);
+  sendMessage(username, message) {
+    this.socket.emit('chat', {message, username});
   }
 }
 
@@ -21,8 +21,9 @@ export class Chat extends React.Component {
     this.state = {messages: ''};
   }
   componentDidMount() {
-    const {token, url} = this.props.location.query;
+    const {token, url, username} = this.props.location.query;
     this.openSocket(url, token);
+    this.setState({username});
   }
 
   openSocket(url, token) {
@@ -32,7 +33,7 @@ export class Chat extends React.Component {
 
   receiveMessage(data) {
     console.log('received', data);
-    const messages = this.state.messages + '\n' + data;
+    const messages = `${this.state.messages}\n${data.username}: ${data.message}`;
     this.setState({messages});
   }
 
@@ -46,7 +47,15 @@ export class Chat extends React.Component {
           width: '100%',
         }}
       >
-        <div style={{width: '100%'}}>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <div>User {this.state.username}</div>
           <textarea
             className="chat-window"
             rows="30"
@@ -61,8 +70,11 @@ export class Chat extends React.Component {
           <input onChange={e => this.setState({message: e.target.value})} />
           <button
             onClick={() => {
-              this.socketClient.sendMessage(this.state.message);
-              const messages = this.state.messages + '\n' + this.state.message;
+              this.socketClient.sendMessage(
+                this.state.username,
+                this.state.message
+              );
+              const messages = `${this.state.messages}\n${this.state.username}: ${this.state.message}`;
               this.setState({messages});
             }}
           >
