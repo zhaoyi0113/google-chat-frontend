@@ -7,7 +7,7 @@
     "dev": "webpack-dev-server",
     "start": "yarn build && node server",
     "clean": "rm -fr dist",
-    "build": "yarn run clean && webpack --progress --profile --colors",
+    "build": "yarn run clean && ./node_modules/webpack/bin/webpack.js --progress --profile --colors",
     "lint": "eslint ./app/**/**.js",
     "test": "jest",
     "test:watch": "jest --watch",
