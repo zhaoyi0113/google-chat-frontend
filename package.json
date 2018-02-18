@@ -7,13 +7,13 @@
     "dev": "webpack-dev-server",
     "start": "yarn build && node server",
     "clean": "node_modules/.bin/rimraf dist",
-    "build": "cross-env npm run clean && webpack --progress --profile --colors",
+    "build": "yarn run clean && webpack --progress --profile --colors",
     "lint": "eslint ./app/**/**.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage",
-    "precommit": "cross-env npm run lint && npm test",
-    "prepush": "cross-env npm run lint && npm test"
+    "precommit": "yarn run lint && yarn test",
+    "prepush": "yarn run lint && yarn test"
   },
   "author": "Yi Zhao <zhaoyi0113@gmail.com>",
   "license": "MIT",
