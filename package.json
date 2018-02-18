@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "start": "yarn build && node server",
-    "clean": "rimraf dist",
+    "clean": "node_modules/.bin/rimraf dist",
     "build": "cross-env npm run clean && webpack --progress --profile --colors",
     "lint": "eslint ./app/**/**.js",
     "test": "jest",
