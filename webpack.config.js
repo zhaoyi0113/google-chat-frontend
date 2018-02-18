@@ -125,7 +125,7 @@ const config = {
     new ExtractTextPlugin({ filename: './styles/style.css', disable: false, allChunks: true }),
     new OpenBrowserPlugin({ url: `http://localhost:${PORT}` }),
 		new webpack.HotModuleReplacementPlugin(),
-		new HtmlWebpackPlugin({filename: 'index.html'})
+		new HtmlWebpackPlugin({filename: 'index.html', template: 'index.html'})
   ],
 };
 
